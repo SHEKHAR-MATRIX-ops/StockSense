@@ -43,11 +43,34 @@ body{
   width:100%;
   height:100%;
   z-index:-1;
-  background:linear-gradient(160deg,#DCEBF7 0%,#EEF2F7 45%,#E4EFE8 100%);
+  background:linear-gradient(135deg,#D9E9FB 0%,#E8F1FA 25%,#F1F7EF 50%,#E3EEF9 75%,#DCEBF9 100%);
+  background-size:220% 220%;
+  animation:gradientDrift 22s ease-in-out infinite;
 }
 
 :root[data-theme="dark"] #bgcanvas{
-  background:linear-gradient(160deg,#0F1720 0%,#14181D 45%,#101A16 100%);
+  background:linear-gradient(135deg,#0D141C 0%,#131A22 25%,#101A16 50%,#111823 75%,#0D141C 100%);
+  background-size:220% 220%;
+  animation:gradientDrift 22s ease-in-out infinite;
+}
+
+@keyframes gradientDrift{
+  0%{background-position:0% 30%;}
+  50%{background-position:100% 70%;}
+  100%{background-position:0% 30%;}
+}
+
+#glow{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:radial-gradient(500px circle at var(--mx,50%) var(--my,20%), rgba(47,93,138,.14), transparent 62%);
+  transition:background .15s ease-out;
+}
+
+:root[data-theme="dark"] #glow{
+  background:radial-gradient(500px circle at var(--mx,50%) var(--my,20%), rgba(127,191,156,.14), transparent 62%);
 }
 
 button,input,select{font-family:inherit;}
@@ -597,6 +620,242 @@ tr.mv-out td:first-child{
   margin:4px 0 14px;
 }
 
+/* ================= interactivity polish ================= */
+
+.kpi-card,.kcard,table tr,.btn-sm,.btn,.viewtoggle button,.icon-btn,.guide-card,.faq-item{
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.kpi-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 26px rgba(30,50,70,.12);
+}
+
+.kcard:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(30,50,70,.14);
+}
+
+table tbody tr:hover td{
+  background:color-mix(in srgb, var(--focus) 6%, transparent);
+}
+
+.btn:hover,.btn-sm:not([disabled]):hover{
+  filter:brightness(1.08);
+  transform:translateY(-1px);
+}
+
+#main{animation:fadeUp .28s ease;}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(6px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ================= landing intro panel ================= */
+
+.auth-shell{
+  display:flex;
+  gap:28px;
+  align-items:stretch;
+  flex-wrap:wrap;
+  justify-content:center;
+  max-width:940px;
+  width:100%;
+}
+
+.intro-panel{
+  background:color-mix(in srgb, var(--panel) 66%, transparent);
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  border:1px solid color-mix(in srgb, var(--line) 55%, transparent);
+  border-radius:14px;
+  padding:32px;
+  flex:1 1 380px;
+  max-width:440px;
+  box-shadow:0 20px 60px rgba(20,40,60,.14);
+}
+
+.intro-badge{
+  display:inline-block;
+  background:var(--up-bg);
+  color:var(--up);
+  font-size:11.5px;
+  font-weight:600;
+  padding:4px 10px;
+  border-radius:99px;
+  margin-bottom:12px;
+}
+
+.intro-panel h2{
+  margin:0 0 8px;
+  font-size:19px;
+  letter-spacing:-0.01em;
+}
+
+.intro-panel p{
+  color:var(--muted);
+  font-size:13.5px;
+  line-height:1.55;
+  margin:0 0 14px;
+}
+
+.intro-features{
+  list-style:none;
+  margin:0 0 16px;
+  padding:0;
+}
+
+.intro-features li{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  font-size:13px;
+  padding:7px 0;
+  border-bottom:1px dashed color-mix(in srgb, var(--line) 70%, transparent);
+}
+
+.intro-features li:last-child{border-bottom:none;}
+
+.intro-features .ico{
+  flex:none;
+  font-size:15px;
+}
+
+/* ================= guided tour modal ================= */
+
+.tour-steps{
+  display:flex;
+  gap:5px;
+  margin:12px 0 4px;
+}
+
+.tour-steps span{
+  height:4px;
+  flex:1;
+  border-radius:3px;
+  background:var(--line);
+}
+
+.tour-steps span.on{background:var(--up);}
+
+.tour-body{min-height:150px;}
+
+.tour-body h4{margin:4px 0 8px;font-size:15px;}
+.tour-body p{color:var(--muted);font-size:13.5px;line-height:1.6;margin:0 0 8px;}
+.tour-body ul{margin:6px 0 0;padding-left:18px;font-size:13px;color:var(--ink);}
+.tour-body li{margin-bottom:5px;}
+
+/* ================= guide page ================= */
+
+.guide-hero{
+  background:linear-gradient(120deg, color-mix(in srgb, var(--up-bg) 80%, transparent), color-mix(in srgb, var(--panel) 60%, transparent));
+  border:1px solid color-mix(in srgb, var(--line) 55%, transparent);
+  border-radius:12px;
+  padding:22px 24px;
+  margin-bottom:20px;
+}
+
+.guide-hero h2{margin:0 0 6px;font-size:18px;}
+.guide-hero p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.6;max-width:760px;}
+
+.guide-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:10px;
+  margin:16px 0 26px;
+}
+
+.guide-step{
+  background:color-mix(in srgb, var(--panel) 70%, transparent);
+  border:1px solid color-mix(in srgb, var(--line) 55%, transparent);
+  border-radius:8px;
+  padding:12px;
+  font-size:12.5px;
+}
+
+.guide-step b{
+  display:block;
+  font-size:12px;
+  color:var(--up);
+  margin-bottom:4px;
+}
+
+.acc-item{
+  border:1px solid color-mix(in srgb, var(--line) 55%, transparent);
+  border-radius:8px;
+  margin-bottom:8px;
+  background:color-mix(in srgb, var(--panel) 70%, transparent);
+  overflow:hidden;
+}
+
+.acc-head{
+  all:unset;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:100%;
+  box-sizing:border-box;
+  padding:13px 16px;
+  cursor:pointer;
+  font-size:13.5px;
+  font-weight:600;
+}
+
+.acc-head .car{
+  transition:transform .2s ease;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.acc-item.open .acc-head .car{transform:rotate(180deg);}
+
+.acc-body{
+  display:none;
+  padding:0 16px 15px;
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.acc-item.open .acc-body{display:block;}
+
+.acc-body ol,.acc-body ul{margin:6px 0;padding-left:18px;}
+.acc-body li{margin-bottom:4px;}
+.acc-body .why{
+  background:var(--up-bg);
+  color:var(--up);
+  border-radius:6px;
+  padding:8px 10px;
+  margin-bottom:10px;
+  font-size:12.5px;
+}
+
+/* ================= help fab ================= */
+
+#helpFab{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  border:none;
+  background:var(--ink);
+  color:var(--paper);
+  font-size:19px;
+  cursor:pointer;
+  box-shadow:0 10px 26px rgba(20,30,45,.3);
+  z-index:15;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+#helpFab.show{display:flex;}
+
+#helpFab:hover{transform:translateY(-2px) scale(1.05);}
+
 @media(max-width:720px){
   .topnav{
     padding:0 10px;
@@ -607,6 +866,9 @@ tr.mv-out td:first-child{
   .topnav .who{display:none;}
 
   main{padding:16px;}
+
+  .intro-panel{order:2;}
+  #helpFab{right:14px;bottom:14px;}
 }
 </style>
 </head>
@@ -614,8 +876,30 @@ tr.mv-out td:first-child{
 <body>
 
 <canvas id="bgcanvas"></canvas>
+<div id="glow"></div>
 
 <div id="auth">
+  <div class="auth-shell">
+
+  <div class="intro-panel">
+    <span class="intro-badge">📦 Why this site exists</span>
+    <h2>StockSense — inventory, without the spreadsheet chaos</h2>
+    <p>
+      Most small teams track stock in scattered Excel sheets — no one knows what's
+      actually on the shelf, what's already promised to a customer, or what's about
+      to run out. StockSense was built to fix exactly that: one place to receive
+      goods, ship them out, move them between warehouses, and see live stock levels —
+      so nothing gets over-sold or forgotten.
+    </p>
+    <ul class="intro-features">
+      <li><span class="ico">📥</span><span><b>Receipts</b> — log incoming stock from suppliers into a warehouse.</span></li>
+      <li><span class="ico">📤</span><span><b>Delivery</b> — reserve and ship stock out to customers.</span></li>
+      <li><span class="ico">🔁</span><span><b>Adjustments</b> — move or correct stock between locations.</span></li>
+      <li><span class="ico">📊</span><span><b>Dashboard &amp; Stock</b> — see totals, value, and low/out-of-stock alerts at a glance.</span></li>
+    </ul>
+    <button class="link" onclick="openTour(true)">▶ New here? Take a 60‑second guided tour</button>
+  </div>
+
   <div class="card">
 
     <p class="brand">StockSense</p>
@@ -743,6 +1027,8 @@ tr.mv-out td:first-child{
     </div>
 
   </div>
+
+  </div>
 </div>
 
 <div id="app">
@@ -755,13 +1041,22 @@ tr.mv-out td:first-child{
 
       <button class="tab active"
               data-tab="dashboard"
+              title="Live overview of stock, alerts and open operations"
               onclick="switchTab('dashboard')">
         Dashboard
+      </button>
+
+      <button class="tab"
+              data-tab="guide"
+              title="Full how-to guide — why this app exists and how to use every screen"
+              onclick="switchTab('guide')">
+        📘 Guide
       </button>
 
       <div class="dropdown" id="dd-ops">
 
         <button class="tab dd-trigger"
+                title="Receive, ship and adjust stock"
                 onclick="toggleDropdown('ops',event)">
           Operations ▾
         </button>
@@ -790,18 +1085,21 @@ tr.mv-out td:first-child{
       <button class="tab"
               id="nav-products"
               data-tab="products"
+              title="Your product catalog — SKUs, reorder points and cost"
               onclick="switchTab('products')">
         Products
       </button>
 
       <button class="tab"
               data-tab="stock"
+              title="On-hand and free-to-use quantity per location"
               onclick="switchTab('stock')">
         Stock
       </button>
 
       <button class="tab"
               data-tab="history"
+              title="Full audit trail of every stock movement"
               onclick="switchTab('history')">
         Move History
       </button>
@@ -856,6 +1154,8 @@ tr.mv-out td:first-child{
 <div class="modal-bg" id="modalBg">
   <div class="modal" id="modalBody"></div>
 </div>
+
+<button id="helpFab" title="Help / guided tour" onclick="openContextHelp()">?</button>
 
 <script>
 
@@ -1100,6 +1400,101 @@ function showScreen(s){
 }
 
 
+/* ================= guided tour ================= */
+
+const tourSlides=[
+  {
+    h:'Why StockSense?',
+    b:`Small teams often run inventory on scattered spreadsheets — nobody is sure
+       what's really on the shelf, what's already promised to a customer, or
+       what's about to run out. StockSense gives everyone one shared, live view
+       of stock instead.`,
+    l:null
+  },
+  {
+    h:'The core idea: Warehouse → Location → Product',
+    b:`Stock always lives in a Warehouse (a building/site), inside a Location
+       (a room, rack or bay). Every Product tracks how many units sit in each
+       Location, so you always know exactly where things are.`,
+    l:null
+  },
+  {
+    h:'Four things you\'ll do most',
+    b:null,
+    l:[
+      '📥 <b>Receipts</b> — stock coming IN from a supplier',
+      '📤 <b>Delivery</b> — stock going OUT to a customer',
+      '🔁 <b>Adjustments</b> — moving/correcting stock between locations',
+      '📊 <b>Dashboard &amp; Stock</b> — live totals and low/out-of-stock alerts'
+    ]
+  },
+  {
+    h:'A typical first-day flow',
+    b:null,
+    l:[
+      '1. Add your Warehouses and Locations (Settings)',
+      '2. Add your Products with a reorder point (Products)',
+      '3. Log a Receipt to bring in opening stock',
+      '4. Create Deliveries as orders come in',
+      '5. Watch the Dashboard for anything running low'
+    ]
+  },
+  {
+    h:'Whenever you\'re stuck',
+    b:`Open the <b>📘 Guide</b> tab any time for a full walkthrough of every
+       screen, or tap the <b>?</b> button in the bottom-right corner for a
+       quick tip about the page you're on.`,
+    l:null
+  }
+];
+
+let tourStep=0;
+
+function openTour(fromLanding){
+
+  tourStep=0;
+
+  document.getElementById('modalBody').innerHTML=renderTourStep();
+
+  openModal();
+
+  if(fromLanding) localStorage.setItem('stocksense_intro_seen','1');
+}
+
+function renderTourStep(){
+
+  const s=tourSlides[tourStep];
+
+  return `
+
+    <h3>Getting started</h3>
+
+    <div class="tour-steps">
+      ${tourSlides.map((_,i)=>`<span class="${i<=tourStep?'on':''}"></span>`).join('')}
+    </div>
+
+    <div class="tour-body">
+      <h4>${s.h}</h4>
+      ${s.b?`<p>${s.b}</p>`:''}
+      ${s.l?`<ul>${s.l.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+    </div>
+
+    <div class="modal-actions">
+      ${tourStep>0?`<button class="btn-sm ghost" onclick="tourNav(-1)">Back</button>`:`<button class="btn-sm ghost" onclick="closeModal()">Skip</button>`}
+      ${tourStep<tourSlides.length-1
+        ?`<button class="btn-sm" onclick="tourNav(1)">Next</button>`
+        :`<button class="btn-sm" onclick="closeModal()">Got it, let's go</button>`}
+    </div>
+
+  `;
+}
+
+function tourNav(dir){
+  tourStep+=dir;
+  document.getElementById('modalBody').innerHTML=renderTourStep();
+}
+
+
 function doSignup(){
 
   const loginId=document
@@ -1265,6 +1660,8 @@ function doLogout(){
     .getElementById('app')
     .classList.remove('on');
 
+  document.getElementById('helpFab').classList.remove('show');
+
   document.getElementById('auth').style.display='flex';
 
   showScreen('login');
@@ -1278,6 +1675,8 @@ function enterApp(){
   document
     .getElementById('app')
     .classList.add('on');
+
+  document.getElementById('helpFab').classList.add('show');
 
   document.getElementById('whoName').textContent=
     currentUser().name;
@@ -1571,6 +1970,8 @@ function render(){
 
     dashboard:renderDashboard,
 
+    guide:renderGuide,
+
     products:renderProducts,
 
     receipts:()=>renderDocList('receipts'),
@@ -1596,6 +1997,237 @@ function render(){
 
 
 /* ================= dashboard ================= */
+
+/* ================= guide page ================= */
+
+const guideSections=[
+  {
+    id:'why',
+    t:'Why StockSense exists',
+    open:true,
+    why:'Spreadsheets don\'t stop two people from promising the same last unit to two different customers. A shared, live system does.',
+    body:`
+      <p>StockSense replaces scattered spreadsheets with one shared source of truth
+      for stock: what you have, where it physically sits, what's already promised
+      to a customer, and what needs reordering — updated the moment anyone logs a
+      movement.</p>
+    `
+  },
+  {
+    id:'setup',
+    t:'1. Warehouses &amp; Locations — set up where stock lives',
+    why:'You can\'t track "how much" without first defining "where".',
+    body:`
+      <ol>
+        <li>Go to <b>Settings ▾ → Warehouse</b> and add each physical site (e.g. Main Warehouse).</li>
+        <li>Go to <b>Settings ▾ → Location</b> and add rooms/racks/bays inside that warehouse (e.g. Stock Room 1).</li>
+        <li>Every product's stock is tracked per location, so create locations before adding stock quantities.</li>
+      </ol>
+    `
+  },
+  {
+    id:'products',
+    t:'2. Products — build your catalog',
+    why:'A reorder point on each product is what powers the low-stock alerts on your Dashboard.',
+    body:`
+      <ol>
+        <li>Open <b>Products</b> and click <b>+ New product</b>.</li>
+        <li>Fill in name, SKU, category, unit of measure and cost.</li>
+        <li>Set a <b>reorder point</b> — the level at which the product should show as "Low stock".</li>
+      </ol>
+    `
+  },
+  {
+    id:'receipts',
+    t:'3. Receipts — bring stock IN',
+    why:'Nothing shows as "in stock" until a receipt confirms it physically arrived.',
+    body:`
+      <ol>
+        <li>Open <b>Operations ▾ → Receipts</b> and click <b>+ New receipt</b>.</li>
+        <li>Pick the supplier/contact, the destination location, and add product lines with quantities.</li>
+        <li>Move the receipt through <b>Waiting → Ready → Done</b> as stock is checked in — quantities only add to stock once it's <b>Done</b>.</li>
+      </ol>
+    `
+  },
+  {
+    id:'delivery',
+    t:'4. Delivery — send stock OUT',
+    why:'A "Ready" delivery reserves stock so it can\'t accidentally be promised twice.',
+    body:`
+      <ol>
+        <li>Open <b>Operations ▾ → Delivery</b> and click <b>+ New delivery</b>.</li>
+        <li>Choose the customer, source location, and the products/quantities to ship.</li>
+        <li>Stock must be available at that location — StockSense reserves it once the delivery is Ready and deducts it when marked <b>Done</b>.</li>
+      </ol>
+    `
+  },
+  {
+    id:'adjustments',
+    t:'5. Adjustments — move or correct stock',
+    why:'Physical counts never match the system perfectly forever — adjustments are how you fix that without a fake sale or purchase.',
+    body:`
+      <ol>
+        <li>Open <b>Operations ▾ → Adjustments</b> to transfer stock between two locations, or correct a count after a stock-take.</li>
+        <li>Every adjustment is logged so you can see exactly who changed what, and when.</li>
+      </ol>
+    `
+  },
+  {
+    id:'stock-dash',
+    t:'6. Dashboard &amp; Stock — keep an eye on things',
+    why:'This is the page to check first thing each morning.',
+    body:`
+      <p><b>Dashboard</b> shows total products, inventory value, out-of-stock and
+      low-stock counts, and how many receipts/deliveries are late or upcoming.</p>
+      <p><b>Stock</b> shows, per product, how much is physically on-hand vs. how
+      much is actually <b>free to use</b> (on-hand minus what's already reserved
+      for a delivery).</p>
+    `
+  },
+  {
+    id:'history',
+    t:'7. Move History — the audit trail',
+    why:'When a number looks wrong, this is where you trace it back.',
+    body:`<p>Every receipt, delivery and adjustment writes a line here — reference,
+      product, quantity, from/to location and status — so you can trace any
+      stock change back to the transaction that caused it.</p>`
+  }
+];
+
+const guideFaq=[
+  {
+    q:'I\'m brand new — where do I actually start?',
+    a:'Settings → Warehouse, then Location, then Products, then log your first Receipt. That order matters — each step needs the one before it.'
+  },
+  {
+    q:'Why can\'t I deliver a product even though "on hand" shows stock?',
+    a:'Check the Stock page: "free to use" may be lower than "on hand" because some units are already reserved by another open delivery.'
+  },
+  {
+    q:'What\'s the difference between a Delivery and an Adjustment?',
+    a:'Delivery = stock leaving to a real customer order. Adjustment = an internal move or correction with no sale involved.'
+  },
+  {
+    q:'Where can I re-watch the quick tour?',
+    a:'Tap the ? button in the bottom-right corner any time, or reopen it from this Guide page.'
+  }
+];
+
+function renderGuide(){
+
+  return `
+
+    <h1 class="pg">📘 Guide</h1>
+    <p class="sub">Why StockSense was built, and how to use every screen.</p>
+
+    <div class="guide-hero">
+      <h2>The problem this app solves</h2>
+      <p>
+        Manual spreadsheets can't stop two people from promising the same unit to
+        two different customers, and they go stale the moment someone forgets to
+        update a cell. StockSense keeps one live, shared record of what's in stock,
+        where it physically is, and what's already spoken for — so the whole team
+        works off the same numbers.
+      </p>
+      <button class="btn-sm" style="margin-top:14px;" onclick="openTour(false)">▶ Replay the 60‑second tour</button>
+    </div>
+
+    <div class="guide-grid">
+      <div class="guide-step"><b>Step 1</b>Create Warehouses &amp; Locations</div>
+      <div class="guide-step"><b>Step 2</b>Add Products + reorder points</div>
+      <div class="guide-step"><b>Step 3</b>Receive opening stock</div>
+      <div class="guide-step"><b>Step 4</b>Deliver, adjust, and monitor</div>
+    </div>
+
+    <h1 class="pg" style="font-size:16px;margin-bottom:10px;">Module-by-module walkthrough</h1>
+
+    ${guideSections.map(s=>`
+
+      <div class="acc-item ${s.open?'open':''}" id="acc-${s.id}">
+
+        <button class="acc-head" onclick="toggleAcc('${s.id}')">
+          <span>${s.t}</span>
+          <span class="car">▾</span>
+        </button>
+
+        <div class="acc-body">
+          ${s.why?`<div class="why">💡 <b>Why it matters:</b> ${s.why}</div>`:''}
+          ${s.body}
+        </div>
+
+      </div>
+
+    `).join('')}
+
+    <h1 class="pg" style="font-size:16px;margin:24px 0 10px;">Frequently asked questions</h1>
+
+    ${guideFaq.map((f,i)=>`
+
+      <div class="acc-item faq-item" id="faq-${i}">
+
+        <button class="acc-head" onclick="toggleAcc('faq-${i}',true)">
+          <span>${f.q}</span>
+          <span class="car">▾</span>
+        </button>
+
+        <div class="acc-body"><p>${f.a}</p></div>
+
+      </div>
+
+    `).join('')}
+
+  `;
+}
+
+function toggleAcc(id,isFaq){
+
+  const el=document.getElementById(
+    isFaq?id:'acc-'+id
+  );
+
+  if(el) el.classList.toggle('open');
+}
+
+
+/* ================= contextual help (fab) ================= */
+
+const helpTips={
+
+  dashboard:['Dashboard','Your daily overview — total stock value, alerts for anything out or low on stock, and how many receipts/deliveries are late or upcoming.'],
+  guide:['Guide','You\'re already on the full guide — scroll down for a module-by-module walkthrough and FAQs.'],
+  receipts:['Receipts','Use this to log stock coming IN from a supplier. Add product lines, then move the receipt to "Done" once it\'s physically checked in — that\'s what adds it to stock.'],
+  delivery:['Delivery','Use this to ship stock OUT to a customer. Marking it "Ready" reserves the stock so it can\'t be double-promised; "Done" deducts it.'],
+  adjustments:['Adjustments','Move stock between two locations, or correct a count after a physical stock-take — no sale or purchase involved.'],
+  products:['Products','Your catalog of SKUs. Set a reorder point on each one so the Dashboard can warn you before you run out.'],
+  stock:['Stock','Shows on-hand quantity per location, plus "free to use" — on-hand minus what\'s already reserved by an open delivery.'],
+  history:['Move History','A full audit trail — every receipt, delivery and adjustment, so you can trace any number back to what caused it.'],
+  warehouses:['Warehouse','Your physical sites. Add one here before you can add locations inside it.'],
+  locations:['Location','Rooms/racks/bays inside a warehouse — this is the actual level stock quantities are tracked at.'],
+  profile:['My Profile','Your account details for this session.']
+};
+
+function openContextHelp(){
+
+  const tip=helpTips[activeTab]||helpTips.dashboard;
+
+  document.getElementById('modalBody').innerHTML=`
+
+    <h3>${tip[0]}</h3>
+
+    <div class="tour-body">
+      <p>${tip[1]}</p>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-sm ghost" onclick="closeModal();switchTab('guide')">Open full guide</button>
+      <button class="btn-sm" onclick="closeModal()">Got it</button>
+    </div>
+
+  `;
+
+  openModal();
+}
+
 
 function renderDashboard(){
 
@@ -4158,9 +4790,16 @@ document
     requestAnimationFrame(step);
   }
 
+  function setGlow(x,y){
+    const root=document.documentElement;
+    root.style.setProperty('--mx',x+'px');
+    root.style.setProperty('--my',y+'px');
+  }
+
   window.addEventListener('resize',resize);
   window.addEventListener('mousemove',e=>{
     mouse.x=e.clientX; mouse.y=e.clientY;
+    setGlow(e.clientX,e.clientY);
   });
   window.addEventListener('mouseleave',()=>{
     mouse.x=-9999; mouse.y=-9999;
@@ -4169,6 +4808,7 @@ document
     if(e.touches[0]){
       mouse.x=e.touches[0].clientX;
       mouse.y=e.touches[0].clientY;
+      setGlow(e.touches[0].clientX,e.touches[0].clientY);
     }
   },{passive:true});
 
@@ -4192,6 +4832,10 @@ if(
 }else{
 
   showScreen('login');
+
+  if(!localStorage.getItem('stocksense_intro_seen')){
+    setTimeout(()=>openTour(true),700);
+  }
 
 }
 
